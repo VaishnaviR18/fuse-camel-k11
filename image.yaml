@@ -1,0 +1,115 @@
+- name: "builder"
+  from: "registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.13.4-3.el8"
+  version: "1.3.0"
+
+  envs:
+  - name: GO111MODULE
+    value: off
+  - name: GOPATH
+    value: /go
+  - name: CAMEL_K_VERSION
+    value: 1.3.0
+  - name: CAMEL_K_TAG
+    value: camel-k-1.3.0.fuse-jdk11-800003
+  - name: CAMEL_K_RUNTIME_VERSION
+    value: 1.6.0.fuse-jdk11-800004-redhat-00001
+  - name: CAMEL_QUARKUS_VERSION
+    value: 1.5.0.fuse-jdk11-800005-redhat-00001
+  - name: CAMEL_VERSION
+    value: 3.7.0.fuse-jdk11-800009-redhat-00001
+  - name: MAVEN_VERSION
+    value: 3.6.3
+  - name: IMAGE_NAME
+    value: registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator
+
+  modules:
+    repositories:
+      - name: modules
+        path: modules
+    install:
+      - name: camel-k
+      - name: vendor
+      - name: apache-maven
+      - name: camel-catalog
+      - name: settings
+      - name: makefile
+      - name: build-camel-k
+      - name: licenses
+ 
+
+#final image
+
+- name: &name "integration-tech-preview/camel-k-rhel8-operator"
+  from: "registry-proxy.engineering.redhat.com/rh-osbs/openjdk-openjdk-11-rhel8:1.2"
+  version: &version "1.0"
+  description: "Red Hat Integration - Camel K is a lightweight integration platform, born on Kubernetes, with serverless superpowers."
+
+  labels:
+  - name: "com.redhat.component"
+    value: "fuse-camel-k-operator-container"
+  - name: "maintainer"
+    value: "Otavio Piske <opiske@redhat.com>"   
+  - name: "io.k8s.display-name"
+    value: "Red Hat Integration - Camel K"
+  - name: "io.openshift.tags"
+    value: "fuse,integration,camel"
+  - name: "fuse.camel.quarkus.version"
+    value: "1.5.0.fuse-jdk11-800005-redhat-00001"
+  - name: "fuse.camel.version"
+    value: "3.7.0.fuse-jdk11-800009-redhat-00001"
+  - name: "fuse.camel-k.runtime.version"
+    value: "1.6.0.fuse-jdk11-800004-redhat-00001"
+  - name: "fuse.camel-k.tag"
+    value: "camel-k-1.3.0.fuse-jdk11-800003"
+
+  envs:
+  - name: "CAMEL_K_RUNTIME_VERSION"
+    value: "1.6.0.fuse-jdk11-800004-redhat-00001"
+  - name: "CAMEL_VERSION"
+    value: "3.7.0.fuse-jdk11-800009-redhat-00001"
+  - name: "CAMEL_K_TAG"
+    value: "camel-k-1.3.0.fuse-jdk11-800003"
+  - name: "CAMEL_QUARKUS_VERSION"
+    value: "1.5.0.fuse-jdk11-800005-redhat-00001"
+  - name: "VERSION"
+    value: *version
+  - name: "IMAGE_NAME"
+    value: "registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator"
+  - name: "PATH"
+    value: "$PATH:/usr/local/bin"
+
+  run:
+    user: 185
+
+  artifacts:
+  - image: builder
+    path: /opt/apache-maven-3.6.3
+    dest: /opt/apache-maven-3.6.3
+
+  - image: builder
+    path: /go/src/github.com/apache/camel-k/kamel
+    dest: /usr/local/bin/
+
+  - image: builder
+    path: /go/src/github.com/apache/camel-k/licenses
+    dest: /root/licenses/fuse-camel-k/
+
+  modules:
+    repositories:
+      - name: modules
+        path: modules
+    install:
+      - name: apache-camel-k-runtime
+      - name: remove-artifact   
+
+  run:  
+    cmd: 
+      - "kamel"
+      - "operator"    
+
+#osbs:
+ # configuration:
+  #  container_file: container.yaml
+   #   repository:
+    #        name: containers/fuse-camel-k
+     #       branch: fuse-8.0-openshift-rhel-8 branch

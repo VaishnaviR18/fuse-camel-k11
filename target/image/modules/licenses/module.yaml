@@ -1,0 +1,27 @@
+artifacts: []
+description: Add & Generate licenses directory
+envs: []
+execute:
+- directory: licenses
+  module_name: licenses
+  name: licenses/configure.sh
+  script: configure.sh
+- directory: licenses
+  module_name: licenses
+  name: licenses/license.sh
+  script: license.sh
+labels: []
+modules:
+  install: []
+  repositories: []
+name: licenses
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  install: []
+  repositories: []
+ports: []
+schema_version: 1
+version: 1.0
+volumes: []

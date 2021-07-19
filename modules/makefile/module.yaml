@@ -1,0 +1,12 @@
+schema_version: 1
+
+name: makefile
+version: 1.0
+description: "Edit Makefile, WAS DEPRECATED because these settings had been moved to the Camel K fuse-jenkins pipeline, but they are no longer there"
+
+envs:
+  - name: CAMEL_K_TAG
+    value: camel-k-1.3.0.fuse-jdk11-800003
+
+execute:
+- script: install.sh

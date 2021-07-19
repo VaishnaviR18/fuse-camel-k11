@@ -1,0 +1,37 @@
+artifacts:
+- dest: /tmp/
+  md5: 98a63aeabca0a3b1e09bb51aa5ddd9a9
+  name: vendor.tar.gz
+  target: vendor.tar.gz
+description: Add & extract vendor.tar.gz
+envs:
+- name: CAMEL_K_TAG
+  value: camel-k-1.3.0.fuse-jdk11-800003
+execute:
+- directory: vendor
+  module_name: vendor
+  name: vendor/install.sh
+  script: install.sh
+labels: []
+modules:
+  install: []
+  repositories: []
+name: vendor
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  content_sets:
+    x86_64:
+    - rhel-7-server-rpms
+  install:
+  - unzip
+  - tar
+  - rsync
+  - shadow-utils
+  manager: microdnf
+  repositories: []
+ports: []
+schema_version: 1
+version: 1.0
+volumes: []

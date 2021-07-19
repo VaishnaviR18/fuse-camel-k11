@@ -1,0 +1,25 @@
+artifacts: []
+description: Removes artifact
+envs:
+- name: CAMEL_K_RUNTIME_VERSION
+  value: 1.6.0.fuse-jdk11-800004-redhat-00001
+execute:
+- directory: remove-artifact
+  module_name: remove-artifact
+  name: remove-artifact/run.sh
+  script: run.sh
+labels: []
+modules:
+  install: []
+  repositories: []
+name: remove-artifact
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  install: []
+  repositories: []
+ports: []
+schema_version: 1
+version: 1.0
+volumes: []

@@ -1,0 +1,33 @@
+artifacts: []
+description: Add camel-catalog-runtime yaml file
+envs:
+- name: CAMEL_K_RUNTIME_VERSION
+  value: 1.6.0.fuse-jdk11-800004-redhat-00001
+execute:
+- directory: camel-catalog
+  module_name: camel-catalog
+  name: camel-catalog/configure.sh
+  script: configure.sh
+- directory: camel-catalog
+  module_name: camel-catalog
+  name: camel-catalog/backward_compatibility.sh
+  script: backward_compatibility.sh
+- directory: camel-catalog
+  module_name: camel-catalog
+  name: camel-catalog/install.sh
+  script: install.sh
+labels: []
+modules:
+  install: []
+  repositories: []
+name: camel-catalog
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  install: []
+  repositories: []
+ports: []
+schema_version: 1
+version: 1.0
+volumes: []

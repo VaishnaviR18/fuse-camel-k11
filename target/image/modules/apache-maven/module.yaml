@@ -1,0 +1,38 @@
+artifacts:
+- dest: //
+  name: apache-maven
+  sha512: c35a1803a6e70a126e80b2b3ae33eed961f83ed74d18fcd16909b2d44d7dada3203f1ffe726c17ef8dcca2dcaa9fca676987befeadc9b9f759967a8cb77181c0
+  target: apache-maven-3.6.3-bin.tar.gz
+  url: https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+description: Add & extract apache-maven artifact
+envs:
+- name: MAVEN_VERSION
+  value: 3.6.3
+execute:
+- directory: apache-maven
+  module_name: apache-maven
+  name: apache-maven/install.sh
+  script: install.sh
+labels: []
+modules:
+  install: []
+  repositories: []
+name: apache-maven
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  content_sets:
+    x86_64:
+    - rhel-7-server-rpms
+  install:
+  - unzip
+  - tar
+  - rsync
+  - shadow-utils
+  manager: microdnf
+  repositories: []
+ports: []
+schema_version: 1
+version: 1.0
+volumes: []

@@ -1,0 +1,26 @@
+artifacts: []
+description: Edit Makefile, WAS DEPRECATED because these settings had been moved to
+  the Camel K fuse-jenkins pipeline, but they are no longer there
+envs:
+- name: CAMEL_K_TAG
+  value: camel-k-1.3.0.fuse-jdk11-800003
+execute:
+- directory: makefile
+  module_name: makefile
+  name: makefile/install.sh
+  script: install.sh
+labels: []
+modules:
+  install: []
+  repositories: []
+name: makefile
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  install: []
+  repositories: []
+ports: []
+schema_version: 1
+version: 1.0
+volumes: []

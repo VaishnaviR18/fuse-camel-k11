@@ -1,0 +1,27 @@
+artifacts: []
+description: Add & extract camel-catalog-runtime artifact
+envs: []
+execute:
+- directory: settings
+  module_name: settings
+  name: settings/configure.sh
+  script: configure.sh
+- directory: settings
+  module_name: settings
+  name: settings/backward_compatibility.sh
+  script: backward_compatibility.sh
+labels: []
+modules:
+  install: []
+  repositories: []
+name: settings
+osbs:
+  configuration: {}
+  repository: {}
+packages:
+  install: []
+  repositories: []
+ports: []
+schema_version: 1
+version: 1.0
+volumes: []

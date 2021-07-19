@@ -1,0 +1,87 @@
+artifacts:
+- dest: /opt/apache-maven-3.6.3/
+  image: builder
+  name: apache-maven-3.6.3
+  path: /opt/apache-maven-3.6.3
+  target: apache-maven-3.6.3
+- dest: /usr/local/bin/
+  image: builder
+  name: kamel
+  path: /go/src/github.com/apache/camel-k/kamel
+  target: kamel
+- dest: /root/licenses/fuse-camel-k/
+  image: builder
+  name: licenses
+  path: /go/src/github.com/apache/camel-k/licenses
+  target: licenses
+description: Red Hat Integration - Camel K is a lightweight integration platform,
+  born on Kubernetes, with serverless superpowers.
+envs:
+- name: CAMEL_K_RUNTIME_VERSION
+  value: 1.6.0.fuse-jdk11-800004-redhat-00001
+- name: CAMEL_VERSION
+  value: 3.7.0.fuse-jdk11-800009-redhat-00001
+- name: CAMEL_K_TAG
+  value: camel-k-1.3.0.fuse-jdk11-800003
+- name: CAMEL_QUARKUS_VERSION
+  value: 1.5.0.fuse-jdk11-800005-redhat-00001
+- name: VERSION
+  value: '1.0'
+- name: IMAGE_NAME
+  value: registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator
+- name: PATH
+  value: $PATH:/usr/local/bin
+from: registry-proxy.engineering.redhat.com/rh-osbs/openjdk-openjdk-11-rhel8:1.2
+labels:
+- name: com.redhat.component
+  value: fuse-camel-k-operator-container
+- name: maintainer
+  value: Otavio Piske <opiske@redhat.com>
+- name: io.k8s.display-name
+  value: Red Hat Integration - Camel K
+- name: io.openshift.tags
+  value: fuse,integration,camel
+- name: fuse.camel.quarkus.version
+  value: 1.5.0.fuse-jdk11-800005-redhat-00001
+- name: fuse.camel.version
+  value: 3.7.0.fuse-jdk11-800009-redhat-00001
+- name: fuse.camel-k.runtime.version
+  value: 1.6.0.fuse-jdk11-800004-redhat-00001
+- name: fuse.camel-k.tag
+  value: camel-k-1.3.0.fuse-jdk11-800003
+- name: io.cekit.version
+  value: 3.11.0
+- name: description
+  value: Red Hat Integration - Camel K is a lightweight integration platform, born
+    on Kubernetes, with serverless superpowers.
+- name: summary
+  value: Red Hat Integration - Camel K is a lightweight integration platform, born
+    on Kubernetes, with serverless superpowers.
+modules:
+  install:
+  - name: apache-camel-k-runtime
+  - name: remove-artifact
+  repositories:
+  - dest: /tmp/artifacts/
+    name: modules
+    path: /home/var/fuse-camel-k/modules
+    target: modules
+name: integration-tech-preview/camel-k-rhel8-operator
+osbs:
+  configuration: {}
+  extra_dir: osbs_extra
+  repository: {}
+packages:
+  install: []
+  manager: yum
+  repositories: []
+  repositories_injected: []
+ports: []
+run:
+  cmd:
+  - kamel
+  - operator
+  name: run
+  user: root
+version: '1.0'
+volumes: []
