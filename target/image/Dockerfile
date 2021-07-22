@@ -74,14 +74,16 @@
 
 ###### START module 'camel-catalog:1.0'
 ###### \
+        # Copy 'camel-catalog' module general artifacts to '//' destination
+        COPY \
+            camel-catalog-1.6.0.fuse-jdk11-800004-redhat-00001.yaml \
+            //
         # Copy 'camel-catalog' module content
         COPY modules/camel-catalog /tmp/scripts/camel-catalog
         # Set 'camel-catalog' module defined environment variables
         ENV \
             CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" 
         # Custom scripts from 'camel-catalog' module
-        USER root
-        RUN [ "sh", "-x", "/tmp/scripts/camel-catalog/configure.sh" ]
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/camel-catalog/backward_compatibility.sh" ]
         USER root
@@ -91,11 +93,13 @@
 
 ###### START module 'settings:1.0'
 ###### \
+        # Copy 'settings' module general artifacts to '//' destination
+        COPY \
+            settings.xml \
+            //
         # Copy 'settings' module content
         COPY modules/settings /tmp/scripts/settings
         # Custom scripts from 'settings' module
-        USER root
-        RUN [ "sh", "-x", "/tmp/scripts/settings/configure.sh" ]
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/settings/backward_compatibility.sh" ]
 ###### /

@@ -3,4 +3,4 @@ set -euo pipefail
 
 # Legacy locations
 
-ln -s settings.xml /root/.m2
+ln -s /settings.xml /root/.m2

@@ -4,6 +4,11 @@ name: settings
 version: 1.0
 description: "Add & extract camel-catalog-runtime artifact"
 
+artifacts:
+    - name: "settings.xml"
+      path: settings-xml/settings.xml
+      dest: /
+
 execute:
-- script: configure.sh
+#- script: configure.sh
 - script: backward_compatibility.sh  
