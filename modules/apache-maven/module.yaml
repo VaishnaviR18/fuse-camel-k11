@@ -4,9 +4,9 @@ name: apache-maven
 version: 1.0
 description: "Add & extract apache-maven artifact"
 
-envs:
-  - name: MAVEN_VERSION
-    value: 3.6.3
+#envs:
+ # - name: MAVEN_VERSION
+  #  value: 3.6.3
   
 packages:
   manager: microdnf

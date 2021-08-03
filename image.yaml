@@ -2,31 +2,12 @@
   from: "registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.13.4-3.el8"
   version: "1.3.0"
 
-  envs:
-  - name: GO111MODULE
-    value: off
-  - name: GOPATH
-    value: /go
-  - name: CAMEL_K_VERSION
-    value: 1.3.0
-  - name: CAMEL_K_TAG
-    value: camel-k-1.3.0.fuse-jdk11-800003
-  - name: CAMEL_K_RUNTIME_VERSION
-    value: 1.6.0.fuse-jdk11-800004-redhat-00001
-  - name: CAMEL_QUARKUS_VERSION
-    value: 1.5.0.fuse-jdk11-800005-redhat-00001
-  - name: CAMEL_VERSION
-    value: 3.7.0.fuse-jdk11-800009-redhat-00001
-  - name: MAVEN_VERSION
-    value: 3.6.3
-  - name: IMAGE_NAME
-    value: registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator
-
   modules:
     repositories:
       - name: modules
         path: modules
     install:
+      - name: environ
       - name: camel-k
       - name: vendor
       - name: apache-maven
@@ -62,22 +43,6 @@
   - name: "fuse.camel-k.tag"
     value: "camel-k-1.3.0.fuse-jdk11-800003"
 
-  envs:
-  - name: "CAMEL_K_RUNTIME_VERSION"
-    value: "1.6.0.fuse-jdk11-800004-redhat-00001"
-  - name: "CAMEL_VERSION"
-    value: "3.7.0.fuse-jdk11-800009-redhat-00001"
-  - name: "CAMEL_K_TAG"
-    value: "camel-k-1.3.0.fuse-jdk11-800003"
-  - name: "CAMEL_QUARKUS_VERSION"
-    value: "1.5.0.fuse-jdk11-800005-redhat-00001"
-  - name: "VERSION"
-    value: *version
-  - name: "IMAGE_NAME"
-    value: "registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator"
-  - name: "PATH"
-    value: "$PATH:/usr/local/bin"
-
   run:
     user: 185
 
@@ -99,6 +64,7 @@
       - name: modules
         path: modules
     install:
+      - name: environ
       - name: apache-camel-k-runtime
       - name: remove-artifact   
 

@@ -5,9 +5,7 @@ artifacts:
   target: apache-maven-3.6.3-bin.tar.gz
   url: https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
 description: Add & extract apache-maven artifact
-envs:
-- name: MAVEN_VERSION
-  value: 3.6.3
+envs: []
 execute:
 - directory: apache-maven
   module_name: apache-maven

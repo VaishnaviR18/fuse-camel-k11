@@ -1,12 +1,10 @@
 artifacts:
-- dest: /tmp/
-  md5: 98a63aeabca0a3b1e09bb51aa5ddd9a9
+- dest: //
   name: vendor.tar.gz
+  path: /home/var/fuse-camel-k/target/repo/modules/vendor/artifact/vendor.tar.gz
   target: vendor.tar.gz
 description: Add & extract vendor.tar.gz
-envs:
-- name: CAMEL_K_TAG
-  value: camel-k-1.3.0.fuse-jdk11-800003
+envs: []
 execute:
 - directory: vendor
   module_name: vendor

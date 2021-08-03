@@ -4,9 +4,9 @@ name: apache-camel-k-runtime
 version: 1.0
 description: "Add & extract apache-camel-k-runtime artifacts."
 
-envs:
-- name: "CAMEL_K_RUNTIME_VERSION"
-  value: "1.6.0.fuse-jdk11-800004-redhat-00001"
+#envs:
+#- name: "CAMEL_K_RUNTIME_VERSION"
+ # value: "1.6.0.fuse-jdk11-800004-redhat-00001"
   
 artifacts:
 - name: "apache-camel-k-runtime"

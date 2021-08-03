@@ -4,9 +4,9 @@ name: camel-catalog
 version: 1.0
 description: "Add camel-catalog-runtime yaml file"
 
-envs:
-- name: "CAMEL_K_RUNTIME_VERSION"
-  value: "1.6.0.fuse-jdk11-800004-redhat-00001"
+#envs:
+#- name: "CAMEL_K_RUNTIME_VERSION"
+#  value: "1.6.0.fuse-jdk11-800004-redhat-00001"
 
 artifacts:
     - name: "camel-catalog-1.6.0.fuse-jdk11-800004-redhat-00001.yaml"

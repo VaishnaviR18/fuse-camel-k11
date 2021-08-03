@@ -6,22 +6,29 @@
     FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.13.4-3.el8 AS builder
     USER root
 
+###### START module 'environ:1.0'
+###### \
+        # Set 'environ' module defined environment variables
+        ENV \
+            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" \
+            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" \
+            CAMEL_K_VERSION="1.3.0" \
+            CAMEL_QUARKUS_VERSION="1.5.0.fuse-jdk11-800005-redhat-00001" \
+            CAMEL_VERSION="3.7.0.fuse-jdk11-800009-redhat-00001" \
+            GOPATH="/go" \
+            IMAGE_NAME="registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator" \
+            MAVEN_VERSION="3.6.3" 
+###### /
+###### END module 'environ:1.0'
+
 ###### START module 'camel-k:1.0'
 ###### \
-        # Copy 'camel-k' module general artifacts to '/tmp/' destination
+        # Copy 'camel-k' module general artifacts to '//' destination
         COPY \
             camel-k-camel-k-1.3.0.fuse-jdk11-800003.tar.gz \
-            /tmp/
+            //
         # Copy 'camel-k' module content
         COPY modules/camel-k /tmp/scripts/camel-k
-        # Switch to 'root' user to install 'camel-k' module defined packages
-        USER root
-        # Install packages defined in the 'camel-k' module
-        RUN yum --setopt=tsflags=nodocs install -y unzip tar rsync shadow-utils \
-            && rpm -q unzip tar rsync shadow-utils
-        # Set 'camel-k' module defined environment variables
-        ENV \
-            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" 
         # Custom scripts from 'camel-k' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/camel-k/install.sh" ]
@@ -30,10 +37,10 @@
 
 ###### START module 'vendor:1.0'
 ###### \
-        # Copy 'vendor' module general artifacts to '/tmp/' destination
+        # Copy 'vendor' module general artifacts to '//' destination
         COPY \
             vendor.tar.gz \
-            /tmp/
+            //
         # Copy 'vendor' module content
         COPY modules/vendor /tmp/scripts/vendor
         # Switch to 'root' user to install 'vendor' module defined packages
@@ -41,9 +48,6 @@
         # Install packages defined in the 'vendor' module
         RUN yum --setopt=tsflags=nodocs install -y unzip tar rsync shadow-utils \
             && rpm -q unzip tar rsync shadow-utils
-        # Set 'vendor' module defined environment variables
-        ENV \
-            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" 
         # Custom scripts from 'vendor' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/vendor/install.sh" ]
@@ -63,9 +67,6 @@
         # Install packages defined in the 'apache-maven' module
         RUN yum --setopt=tsflags=nodocs install -y unzip tar rsync shadow-utils \
             && rpm -q unzip tar rsync shadow-utils
-        # Set 'apache-maven' module defined environment variables
-        ENV \
-            MAVEN_VERSION="3.6.3" 
         # Custom scripts from 'apache-maven' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/apache-maven/install.sh" ]
@@ -80,9 +81,6 @@
             //
         # Copy 'camel-catalog' module content
         COPY modules/camel-catalog /tmp/scripts/camel-catalog
-        # Set 'camel-catalog' module defined environment variables
-        ENV \
-            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" 
         # Custom scripts from 'camel-catalog' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/camel-catalog/backward_compatibility.sh" ]
@@ -93,13 +91,11 @@
 
 ###### START module 'settings:1.0'
 ###### \
-        # Copy 'settings' module general artifacts to '//' destination
-        COPY \
-            settings.xml \
-            //
         # Copy 'settings' module content
         COPY modules/settings /tmp/scripts/settings
         # Custom scripts from 'settings' module
+        USER root
+        RUN [ "sh", "-x", "/tmp/scripts/settings/configure.sh" ]
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/settings/backward_compatibility.sh" ]
 ###### /
@@ -109,9 +105,6 @@
 ###### \
         # Copy 'makefile' module content
         COPY modules/makefile /tmp/scripts/makefile
-        # Set 'makefile' module defined environment variables
-        ENV \
-            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" 
         # Custom scripts from 'makefile' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/makefile/install.sh" ]
@@ -122,12 +115,6 @@
 ###### \
         # Copy 'build-camel-k' module content
         COPY modules/build-camel-k /tmp/scripts/build-camel-k
-        # Set 'build-camel-k' module defined environment variables
-        ENV \
-            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" \
-            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" \
-            CAMEL_K_VERSION="1.3.0" \
-            IMAGE_NAME="registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator" 
         # Custom scripts from 'build-camel-k' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/build-camel-k/build.sh" ]
@@ -148,16 +135,6 @@
 
 ###### START image 'builder:1.3.0'
 ###### \
-        # Set 'builder' image defined environment variables
-        ENV \
-            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" \
-            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" \
-            CAMEL_K_VERSION="1.3.0" \
-            CAMEL_QUARKUS_VERSION="1.5.0.fuse-jdk11-800005-redhat-00001" \
-            CAMEL_VERSION="3.7.0.fuse-jdk11-800009-redhat-00001" \
-            GOPATH="/go" \
-            IMAGE_NAME="registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator" \
-            MAVEN_VERSION="3.6.3" 
 ###### /
 ###### END image 'builder:1.3.0'
 
@@ -172,6 +149,21 @@
 
     USER root
 
+###### START module 'environ:1.0'
+###### \
+        # Set 'environ' module defined environment variables
+        ENV \
+            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" \
+            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" \
+            CAMEL_K_VERSION="1.3.0" \
+            CAMEL_QUARKUS_VERSION="1.5.0.fuse-jdk11-800005-redhat-00001" \
+            CAMEL_VERSION="3.7.0.fuse-jdk11-800009-redhat-00001" \
+            GOPATH="/go" \
+            IMAGE_NAME="registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator" \
+            MAVEN_VERSION="3.6.3" 
+###### /
+###### END module 'environ:1.0'
+
 ###### START module 'apache-camel-k-runtime:1.0'
 ###### \
         # Copy 'apache-camel-k-runtime' module general artifacts to '/tmp/' destination
@@ -180,9 +172,6 @@
             /tmp/
         # Copy 'apache-camel-k-runtime' module content
         COPY modules/apache-camel-k-runtime /tmp/scripts/apache-camel-k-runtime
-        # Set 'apache-camel-k-runtime' module defined environment variables
-        ENV \
-            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" 
         # Custom scripts from 'apache-camel-k-runtime' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/apache-camel-k-runtime/install.sh" ]
@@ -193,9 +182,6 @@
 ###### \
         # Copy 'remove-artifact' module content
         COPY modules/remove-artifact /tmp/scripts/remove-artifact
-        # Set 'remove-artifact' module defined environment variables
-        ENV \
-            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" 
         # Custom scripts from 'remove-artifact' module
         USER root
         RUN [ "sh", "-x", "/tmp/scripts/remove-artifact/run.sh" ]
@@ -208,15 +194,6 @@
         COPY --from=builder /opt/apache-maven-3.6.3 /opt/apache-maven-3.6.3/apache-maven-3.6.3
         COPY --from=builder /go/src/github.com/apache/camel-k/kamel /usr/local/bin/kamel
         COPY --from=builder /go/src/github.com/apache/camel-k/licenses /root/licenses/fuse-camel-k/licenses
-        # Set 'integration-tech-preview/camel-k-rhel8-operator' image defined environment variables
-        ENV \
-            CAMEL_K_RUNTIME_VERSION="1.6.0.fuse-jdk11-800004-redhat-00001" \
-            CAMEL_K_TAG="camel-k-1.3.0.fuse-jdk11-800003" \
-            CAMEL_QUARKUS_VERSION="1.5.0.fuse-jdk11-800005-redhat-00001" \
-            CAMEL_VERSION="3.7.0.fuse-jdk11-800009-redhat-00001" \
-            IMAGE_NAME="registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator" \
-            PATH="$PATH:/usr/local/bin" \
-            VERSION="1.0" 
         # Set 'integration-tech-preview/camel-k-rhel8-operator' image defined labels
         LABEL \
             com.redhat.component="fuse-camel-k-operator-container"  \

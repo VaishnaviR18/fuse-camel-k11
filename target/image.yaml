@@ -16,21 +16,7 @@ artifacts:
   target: licenses
 description: Red Hat Integration - Camel K is a lightweight integration platform,
   born on Kubernetes, with serverless superpowers.
-envs:
-- name: CAMEL_K_RUNTIME_VERSION
-  value: 1.6.0.fuse-jdk11-800004-redhat-00001
-- name: CAMEL_VERSION
-  value: 3.7.0.fuse-jdk11-800009-redhat-00001
-- name: CAMEL_K_TAG
-  value: camel-k-1.3.0.fuse-jdk11-800003
-- name: CAMEL_QUARKUS_VERSION
-  value: 1.5.0.fuse-jdk11-800005-redhat-00001
-- name: VERSION
-  value: '1.0'
-- name: IMAGE_NAME
-  value: registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator
-- name: PATH
-  value: $PATH:/usr/local/bin
+envs: []
 from: registry-proxy.engineering.redhat.com/rh-osbs/openjdk-openjdk-11-rhel8:1.2
 labels:
 - name: com.redhat.component
@@ -59,6 +45,7 @@ labels:
     on Kubernetes, with serverless superpowers.
 modules:
   install:
+  - name: environ
   - name: apache-camel-k-runtime
   - name: remove-artifact
   repositories:

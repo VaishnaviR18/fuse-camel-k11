@@ -5,9 +5,7 @@ artifacts:
   target: apache-camel-k-runtime-1.6.0.fuse-jdk11-800004-redhat-00001-m2.zip
   url: http://indy.psi.redhat.com/api/content/maven/group/redhat-builds/org/apache/camel/k/apache-camel-k-runtime/1.6.0.fuse-jdk11-800004-redhat-00001/apache-camel-k-runtime-1.6.0.fuse-jdk11-800004-redhat-00001-m2.zip
 description: Add & extract apache-camel-k-runtime artifacts.
-envs:
-- name: CAMEL_K_RUNTIME_VERSION
-  value: 1.6.0.fuse-jdk11-800004-redhat-00001
+envs: []
 execute:
 - directory: apache-camel-k-runtime
   module_name: apache-camel-k-runtime
