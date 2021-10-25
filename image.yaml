@@ -43,9 +43,6 @@
   - name: "fuse.camel-k.tag"
     value: "camel-k-1.3.0.fuse-jdk11-800003"
 
-  run:
-    user: 185
-
   artifacts:
   - image: builder
     path: /opt/apache-maven-3.6.3
@@ -65,10 +62,13 @@
         path: modules
     install:
       - name: environ
+      - name: user
       - name: apache-camel-k-runtime
       - name: remove-artifact   
+      - name: user
 
-  run:  
+  run: 
+    user: 185 
     cmd: 
       - "kamel"
       - "operator"    

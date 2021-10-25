@@ -1,7 +1,7 @@
 artifacts:
 - dest: //
   name: vendor.tar.gz
-  path: /home/var/fuse-camel-k/target/repo/modules/vendor/artifact/vendor.tar.gz
+  path: /home/var/Completed-Cekit-Code/fuse-camel-k/target/repo/modules/vendor/artifact/vendor.tar.gz
   target: vendor.tar.gz
 description: Add & extract vendor.tar.gz
 envs: []

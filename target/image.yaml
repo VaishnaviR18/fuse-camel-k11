@@ -46,12 +46,13 @@ labels:
 modules:
   install:
   - name: environ
+  - name: user
   - name: apache-camel-k-runtime
   - name: remove-artifact
   repositories:
   - dest: /tmp/artifacts/
     name: modules
-    path: /home/var/fuse-camel-k/modules
+    path: /home/var/Completed-Cekit-Code/fuse-camel-k/modules
     target: modules
 name: integration-tech-preview/camel-k-rhel8-operator
 osbs:
@@ -69,6 +70,6 @@ run:
   - kamel
   - operator
   name: run
-  user: root
+  user: 185
 version: '1.0'
 volumes: []

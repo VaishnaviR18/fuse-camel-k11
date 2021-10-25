@@ -7,6 +7,8 @@ description: "Add & extract apache-camel-k-runtime artifacts."
 #envs:
 #- name: "CAMEL_K_RUNTIME_VERSION"
  # value: "1.6.0.fuse-jdk11-800004-redhat-00001"
+run:
+  user: 185
   
 artifacts:
 - name: "apache-camel-k-runtime"
@@ -17,3 +19,4 @@ artifacts:
 
 execute:
 - script: install.sh
+  

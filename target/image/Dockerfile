@@ -164,6 +164,11 @@
 ###### /
 ###### END module 'environ:1.0'
 
+###### START module 'user:1.0'
+###### \
+###### /
+###### END module 'user:1.0'
+
 ###### START module 'apache-camel-k-runtime:1.0'
 ###### \
         # Copy 'apache-camel-k-runtime' module general artifacts to '/tmp/' destination
@@ -217,7 +222,7 @@
     RUN [ ! -d /tmp/scripts ] || rm -rf /tmp/scripts
     RUN [ ! -d /tmp/artifacts ] || rm -rf /tmp/artifacts
     # Define the user
-    USER root
+    USER 185
     # Define run cmd
     CMD ["kamel", "operator"]
 ## /
