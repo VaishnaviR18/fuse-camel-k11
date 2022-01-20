@@ -19,3 +19,14 @@ sed -i "`expr $result + 9`i\\				<fuse.ignite.operator.config>/conf/config.yaml<
 sed -i "`expr $result + 10`i\\				<fuse.ignite.operator.upstream>$4</fuse.ignite.operator.upstream>\\" settings.xml
 sed -i "`expr $result + 11`i\\			</properties>\\" settings.xml
 sed -i "`expr $result + 12`i\\		</profile>\\" settings.xml
+
+git add settings.xml
+
+num_files=$(git status --porcelain  | { egrep '^\s?[MADRC]' || true; } | wc -l)
+    if ((num_files > 0)) ; then
+        echo "Committing $num_files"
+        git commit -m "Added the profile for 7.11" .
+        git push
+    else
+        echo "There are no files to be committed. Skipping commit + push"
+    fi
