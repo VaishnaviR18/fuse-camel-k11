@@ -3,6 +3,8 @@
 set -o pipefail
 set -eu
 
+git clone https://github.com/VaishnaviR18/fuse-camel-k11.git
+cd fuse-camel-k11
 a=`wc -l < settings.xml`
 result=`expr $a - 1`
 
