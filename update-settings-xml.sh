@@ -21,6 +21,9 @@ sed -i "`expr $result + 10`i\\				<fuse.ignite.operator.upstream>$4</fuse.ignite
 sed -i "`expr $result + 11`i\\			</properties>\\" settings.xml
 sed -i "`expr $result + 12`i\\		</profile>\\" settings.xml
 
+b=`wc -l < settings.xml`
+echo "$b"
+
 git add settings.xml
 
 num_files=$(git status --porcelain  | { egrep '^\s?[MADRC]' || true; } | wc -l)
