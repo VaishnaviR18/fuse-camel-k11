@@ -23,7 +23,7 @@ sed -i "`expr $result + 12`i\\		</profile>\\" settings.xml
 
 b=`wc -l < settings.xml`
 echo "$b"
-
+cat settings.xml
 git add settings.xml
 
 num_files=$(git status --porcelain  | { egrep '^\s?[MADRC]' || true; } | wc -l)
