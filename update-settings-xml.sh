@@ -5,6 +5,7 @@ set -eu
 
 a=`wc -l < settings.xml`
 result=`expr $a - 1`
+echo "$result"
 
 sed -i "$result i\\		<profile>\\" settings.xml
 sed -i "`expr $result + 1`i\\			<id>$1</id>\\" settings.xml
