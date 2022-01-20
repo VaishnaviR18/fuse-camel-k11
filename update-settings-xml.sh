@@ -26,7 +26,7 @@ num_files=$(git status --porcelain  | { egrep '^\s?[MADRC]' || true; } | wc -l)
     if ((num_files > 0)) ; then
         echo "Committing $num_files"
         git commit -m "Added the profile for 7.11" .
-        git push
+        git push origin
     else
         echo "There are no files to be committed. Skipping commit + push"
     fi
